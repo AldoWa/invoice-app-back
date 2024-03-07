@@ -14,6 +14,12 @@ export class CreateItems1709600575139 implements MigrationInterface {
                         isNullable: false,
                     },
                     {
+                        name: 'name',
+                        type: 'varchar',
+                        length: "150",
+                        isNullable: true,
+                    },
+                    {
                         name: 'quantity',
                         type: 'int',
                         isNullable: true,

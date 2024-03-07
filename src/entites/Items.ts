@@ -8,6 +8,9 @@ export class Items {
     id: string;
 
     @Column()
+    name: string;
+
+    @Column()
     quantity: number;
 
     @Column()
@@ -18,7 +21,7 @@ export class Items {
 
     @CreateDateColumn()
     created_at: Date;
-    
+
     constructor(){
         if(!this.id){
             this.id = uuid();

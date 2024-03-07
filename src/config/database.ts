@@ -11,10 +11,10 @@ const AppDataSource = new DataSource({
   username: DB_USERNAME,
   password: DB_PASSWORD,
   database: DB_DATABASE,
-  synchronize: true,
-  logging: true,
-  entities: ['src/entites/**/*.ts'],
-  migrations: ['src/migrations/**/*.ts'],
+  synchronize: false,
+  logging: false,
+  entities: ['src/entites/*.ts'],
+  migrations: ['src/migrations/*.ts'],
 })
 
 export default AppDataSource

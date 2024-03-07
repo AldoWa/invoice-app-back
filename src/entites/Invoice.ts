@@ -1,15 +1,11 @@
-import { Column, CreateDateColumn, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
 import { Address } from "./Address";
 
 import { v4 as uuid } from 'uuid';
 import { Items } from "./Items";
+import { StatusEnum } from "../types/invoice";
 
-type StatusEnum = {
-  PAID: 'paid',
-  PENDING: 'pending',
-  DRAFT: 'draft'
-}
-
+@Entity("invoice")
 export class Invoice {
     @PrimaryColumn()
     id: string;
@@ -23,7 +19,10 @@ export class Invoice {
     @Column()
     client_email: string;
 
-    @Column()
+    @Column({
+      type: "enum",
+      enum: StatusEnum,
+    })
     status: StatusEnum;
 
     @Column()
@@ -35,21 +34,27 @@ export class Invoice {
     @Column()
     items_id: string;
 
-    @OneToOne(() => Address)
+    @OneToOne(() => Address, {
+      cascade: true,
+    })
     @JoinColumn({name: "sender_address_id"})
     sender_address: Address;
 
-    @OneToOne(() => Address)
+    @OneToOne(() => Address, {
+      cascade: true,
+    })
     @JoinColumn({name: "client_address_id"})
     client_address: Address;
 
-    @OneToMany(() => Items, items => items.id)
+    @OneToMany(() => Items, items => items.id, {
+      cascade: true,
+    })
     @JoinColumn({name: "items_id"})
     items: Items[];
     
     @CreateDateColumn()
     created_at: Date;
-    
+
     constructor(){
         if(!this.id){
             this.id = uuid();
