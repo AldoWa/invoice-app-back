@@ -39,7 +39,7 @@ export class CreateInvoice1709846755921 implements MigrationInterface {
                             enum: ['draft', 'pending', 'paid']
                         },
                         {
-                            name: 'send_address_id',
+                            name: 'sender_address_id',
                             type: 'uuid',
                             isNullable: true,
                         },
@@ -73,7 +73,7 @@ export class CreateInvoice1709846755921 implements MigrationInterface {
                     foreignKeys: [
                         {
                             name: 'fk_invoice_send_address',
-                            columnNames: ['send_address_id'],
+                            columnNames: ['sender_address_id'],
                             referencedTableName: 'address',
                             referencedColumnNames: ['id'],
                             onDelete: 'CASCADE',
@@ -99,6 +99,6 @@ export class CreateInvoice1709846755921 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('invoice')
     }
-
 }
