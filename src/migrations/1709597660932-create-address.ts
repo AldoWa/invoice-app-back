@@ -11,26 +11,31 @@ export class CreateAddress1709597660932 implements MigrationInterface {
                         name: 'id',
                         type: 'uuid',
                         isPrimary: true,
+                        isNullable: false,
                     },
                     {
                         name: 'street',
                         type: 'varchar',
                         length: '150',
+                        isNullable: true,
                     },
                     {
                         name: 'city',
                         type: 'varchar',
                         length: '150',
+                        isNullable: true,
                     },
                     {
                         name: 'post_code',
                         type: 'varchar',
                         length: '150',
+                        isNullable: true,
                     },
                     {
                         name: 'country',
                         type: 'varchar',
                         length: '150',
+                        isNullable: true,
                     },
                     {
                         name: 'created_at',

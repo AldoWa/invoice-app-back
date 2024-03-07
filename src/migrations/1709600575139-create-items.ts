@@ -11,20 +11,24 @@ export class CreateItems1709600575139 implements MigrationInterface {
                         name: 'id',
                         type: 'uuid',
                         isPrimary: true,
+                        isNullable: false,
                     },
                     {
                         name: 'quantity',
-                        type: 'int'
+                        type: 'int',
+                        isNullable: true,
                     },
                     {
                         name: 'price',
                         type: 'decimal',
                         scale: 2,
+                        isNullable: true,
                     },
                     {
                         name: 'total',
                         type: 'decimal',
                         scale: 2,
+                        isNullable: true,
                     },
                     {
                         name: 'created_at',
