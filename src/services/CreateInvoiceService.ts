@@ -11,6 +11,8 @@ export class CreateInvoiceService {
 
     const addressService = new CreateAddressService()
     const itemService = new CreateItemService()
+
+
     try {
       const [clientAddress, senderAddress] = await Promise.all([
         addressService.execute(client.address),
@@ -29,6 +31,8 @@ export class CreateInvoiceService {
         paymentDue: `2021-10-10T00:00:00.000Z`,
         total: items.reduce((acc, item) => acc + item.total, 0),
       })
+      
+      await invoiceRepo.save(invoiceCreated)
 
       await Promise.all(items.flatMap(item => itemService.execute(item, invoiceCreated.id)))
 

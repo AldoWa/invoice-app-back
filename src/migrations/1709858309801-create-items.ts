@@ -23,7 +23,6 @@ export class CreateItems1709858309801 implements MigrationInterface {
                         type: 'varchar',
                         length: "150",
                         isNullable: true,
-                        isUnique: true,
                     },
                     {
                         name: 'quantity',
@@ -54,6 +53,7 @@ export class CreateItems1709858309801 implements MigrationInterface {
                         referencedTableName: 'invoices',
                         referencedColumnNames: ['id'],
                         columnNames: ['invoice_id'],
+                        onDelete: 'CASCADE',
                     }
                 ]
             }))

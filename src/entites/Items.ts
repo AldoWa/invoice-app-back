@@ -10,14 +10,13 @@ export class Items {
     id: string;
 
     @Column()
-    @Unique("name", ["name"])
     name: string;
 
     @Column()
     invoice_id: string;
     
     @ManyToOne(() => Invoice, invoice => invoice.id, {
-        cascade: false,
+        cascade: true,
     })
     @JoinColumn({name: "invoice_id"})
     invoices: Invoice;
