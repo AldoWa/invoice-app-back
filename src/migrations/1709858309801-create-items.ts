@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateItems1709600575139 implements MigrationInterface {
+export class CreateItems1709858309801 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -14,10 +14,16 @@ export class CreateItems1709600575139 implements MigrationInterface {
                         isNullable: false,
                     },
                     {
+                        name: 'invoice_id',
+                        type: 'uuid',
+                        isNullable: true,
+                    },
+                    {
                         name: 'name',
                         type: 'varchar',
                         length: "150",
                         isNullable: true,
+                        isUnique: true,
                     },
                     {
                         name: 'quantity',
@@ -42,6 +48,14 @@ export class CreateItems1709600575139 implements MigrationInterface {
                         default: 'now()',
                     },
                 ],
+                foreignKeys: [
+                    {
+                        name: 'fk_items_invoice',
+                        referencedTableName: 'invoices',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['invoice_id'],
+                    }
+                ]
             }))
     }
 

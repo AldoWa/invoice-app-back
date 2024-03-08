@@ -31,9 +31,6 @@ export class Invoice {
     @Column()
     client_address_id: string;
 
-    @Column()
-    items_id: string;
-
     @OneToOne(() => Address, {
       cascade: true,
     })
@@ -45,12 +42,6 @@ export class Invoice {
     })
     @JoinColumn({name: "client_address_id"})
     client_address: Address;
-
-    @OneToMany(() => Items, items => items.id, {
-      cascade: true,
-    })
-    @JoinColumn({name: "items_id"})
-    items: Items[];
     
     @CreateDateColumn()
     created_at: Date;

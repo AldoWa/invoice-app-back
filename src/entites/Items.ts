@@ -1,6 +1,8 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, Unique } from "typeorm";
 
 import { v4 as uuid } from 'uuid';
+
+import { Invoice } from "./Invoice";
 
 @Entity("items")
 export class Items {
@@ -8,7 +10,17 @@ export class Items {
     id: string;
 
     @Column()
+    @Unique("name", ["name"])
     name: string;
+
+    @Column()
+    invoice_id: string;
+    
+    @ManyToOne(() => Invoice, invoice => invoice.id, {
+        cascade: false,
+    })
+    @JoinColumn({name: "invoice_id"})
+    invoices: Invoice;
 
     @Column()
     quantity: number;

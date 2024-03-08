@@ -26,7 +26,7 @@ export enum StatusEnum {
   DRAFT = 'draft'
 }
 
-type Items = {
+export type Items = {
   name: string;
   quantity: number;
   price: number;
