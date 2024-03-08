@@ -7,7 +7,7 @@ export class CreateAddressService {
   async execute({ city, country, postCode, street }: AddressInput){
     const addressRepository = AppDataSource.getRepository(Address);
     
-    const address = await addressRepository.create({
+    const address = addressRepository.create({
       city,
       country,
       post_code: postCode,

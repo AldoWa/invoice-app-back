@@ -9,7 +9,7 @@ export class CreateInvoiceController {
 
     const createInvoiceService = new CreateInvoiceService();
 
-    const invoice = await createInvoiceService.execute({
+    const result = await createInvoiceService.execute({
       client,
       sender,
       description,
@@ -18,6 +18,10 @@ export class CreateInvoiceController {
       paymentTerms
     });
 
-    return response.json(invoice);
+    if(result instanceof Error){
+      return response.status(400).json({ error: result.message });
+    }
+
+    return response.json(result);
   }
 }
