@@ -6,12 +6,13 @@ import { Invoice } from "../entites/Invoice";
 import { CreateAddressService } from "./CreateAddressService";
 import { CreateItemService } from "./CreateItemService";
 
+import { add, startOfToday } from "date-fns";
+
 export class CreateInvoiceService {
-  async execute({ client, sender, items, description, status }: CreateInvoice) {
+  async execute({ client, sender, items, description, status, paymentTerms }: CreateInvoice) {
 
     const addressService = new CreateAddressService()
     const itemService = new CreateItemService()
-
 
     try {
       const [clientAddress, senderAddress] = await Promise.all([
@@ -28,7 +29,7 @@ export class CreateInvoiceService {
         client_name: client.name,
         description,
         status,
-        paymentDue: `2021-10-10T00:00:00.000Z`,
+        paymentDue: add(startOfToday(), { days: paymentTerms }),
         total: items.reduce((acc, item) => acc + item.total, 0),
       })
       
