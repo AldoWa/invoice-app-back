@@ -51,7 +51,7 @@ export class UpdateInvoiceService{
         },
         status,
         total: items.reduce((acc, item) => acc + item.total, 0),
-        items
+        items: JSON.stringify(items)
       }
 
       await invoiceRepository.save(invoice);

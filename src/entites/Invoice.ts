@@ -21,7 +21,7 @@ export class Invoice {
     @Column({
       type: 'json'
     })
-    items: Items[];
+    items: string;
 
     @Column({
       type: "enum",

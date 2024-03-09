@@ -12,6 +12,11 @@ export class GetAllInvoicesService {
       }
     )
 
-    return invoices
+    return invoices.map((invoice) => {
+      return {
+        ...invoice,
+        items: JSON.parse(invoice.items)
+      }
+    })
   }
 }

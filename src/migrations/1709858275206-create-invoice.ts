@@ -61,7 +61,7 @@ export class CreateInvoice1709858275206 implements MigrationInterface {
                         },
                         {
                             name: 'items',
-                            type: 'json',
+                            type: 'array',
                             isNullable: true,
                         },
                         {

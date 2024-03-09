@@ -35,7 +35,7 @@ export class CreateInvoiceService {
         status,
         paymentDue: add(startOfToday(), { days: paymentTerms }),
         total: items.reduce((acc, item) => acc + item.total, 0),
-        items
+        items: JSON.stringify(items)
       })
       
       await invoiceRepo.save(invoiceCreated)
