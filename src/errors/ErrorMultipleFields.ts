@@ -1,6 +1,6 @@
 export class ErrorMultipleFields extends Error {
   private errors_: string[];
-  constructor(errors, message = 'Error in validate') {
+  constructor(errors: string[], message: string = 'Error in validate') {
     super(message);
 
     this.errors_ = errors;

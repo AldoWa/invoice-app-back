@@ -1,5 +1,5 @@
 import AppDataSource from "../config/database";
-import { InvoiceInput, Items, StatusEnum } from "../types/invoice";
+import { InvoiceInput, StatusEnum } from "../types/invoice";
 
 import { Invoice } from "../entites/Invoice";
 

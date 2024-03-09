@@ -24,6 +24,6 @@ export class CreateInvoiceController {
       return response.status(400).json({ errors: result.getFields() });
     }
 
-    return response.json(result);
+    return response.status(201).json(result);
   }
 }

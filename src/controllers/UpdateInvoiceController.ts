@@ -22,6 +22,6 @@ export class UpdateInvoiceController {
       return response.status(400).json({ errors: result.getFields() });
     }
 
-    return response.json({ result: 'updated' })
+    return response.status(204).json()
   }
 }
