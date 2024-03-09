@@ -1,16 +1,20 @@
 export type CreateInvoice = {
-  client: {
-    name: string;
-    email: string;
-    address: Address;
-  }
-  sender: {
-    address: Address;
-  }
+  client: Client;
+  sender: Sender;
   description: string;
   status: StatusEnum;
   items: Items[]
   paymentTerms: number;
+}
+
+export type Client = {
+  name: string;
+  email: string;
+  address: Address;
+}
+
+export type Sender = {
+  address: Address;
 }
 
 export type Address = {
