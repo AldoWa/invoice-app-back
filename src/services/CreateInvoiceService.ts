@@ -1,51 +1,17 @@
 import AppDataSource from "../config/database";
-import { CreateInvoice, Items, StatusEnum } from "../types/invoice";
+import { InvoiceInput, Items, StatusEnum } from "../types/invoice";
 
 import { Invoice } from "../entites/Invoice";
 
 import { CreateAddressService } from "./CreateAddressService";
-import { CreateItemService } from "./CreateItemService";
 
 import { add, startOfToday } from "date-fns";
-import { getClientCondition, getSenderCondition } from "../utils/conditionIfExist";
 
-import { ErrorMultipleFields } from "../errors/ErrorMultipleFields";
+import { validateRequest } from "../utils/validate";
 
-const addItems = async (items: Items[], idInvoiceCreated: string) => {
-  const itemService = new CreateItemService()
-  if(items.length) {
-    await Promise.all(items.flatMap(item => itemService.execute(item, idInvoiceCreated)))
-  }
-}
-
-const hasNotEmptyFields = (client, sender, items, description, status, paymentTerms) => {
-  const hasClient = getClientCondition(client)
-  const hasSender = getSenderCondition(sender)
-  const hasItems = !!items.length
-  const hasDescription = !!description
-  const hasStatus = !!status
-  const hasPaymentTerms = !!paymentTerms
-  return {
-    condition: hasClient && hasSender && hasItems && hasDescription && hasStatus && hasPaymentTerms,
-    hasItems
-  }
-}
-
-const validateRequest = ({ client, sender, items, description, status, paymentTerms }: CreateInvoice) => {
-  const { condition, hasItems } = hasNotEmptyFields(client, sender, items, description, status, paymentTerms)
-  if(condition) {
-    return
-  }
- 
-  if(!hasItems) {
-    throw new ErrorMultipleFields(['An item must be added', 'All fields must be added'])
-  }
-
-  throw new ErrorMultipleFields(['All fields must be added']);
-}
 
 export class CreateInvoiceService {
-  async execute({ client, sender, items, description, status, paymentTerms }: CreateInvoice) {
+  async execute({ client, sender, items, description, status, paymentTerms }: InvoiceInput) {
 
     const addressService = new CreateAddressService()
     
@@ -69,11 +35,10 @@ export class CreateInvoiceService {
         status,
         paymentDue: add(startOfToday(), { days: paymentTerms }),
         total: items.reduce((acc, item) => acc + item.total, 0),
+        items
       })
       
       await invoiceRepo.save(invoiceCreated)
-
-      addItems(items, invoiceCreated.id)
 
       return { ok: true }
     } catch(error) {

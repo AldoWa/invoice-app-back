@@ -1,4 +1,4 @@
-export type CreateInvoice = {
+export type InvoiceInput = {
   client: Client;
   sender: Sender;
   description: string;

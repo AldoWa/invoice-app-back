@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryColumn }
 import { Address } from "./Address";
 
 import { v4 as uuid } from 'uuid';
-import { StatusEnum } from "../types/invoice";
+import { Items, StatusEnum } from "../types/invoice";
 
 @Entity("invoices")
 export class Invoice {
@@ -17,6 +17,11 @@ export class Invoice {
 
     @Column()
     client_email: string;
+
+    @Column({
+      type: 'json'
+    })
+    items: Items[];
 
     @Column({
       type: "enum",

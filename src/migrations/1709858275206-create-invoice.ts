@@ -60,6 +60,11 @@ export class CreateInvoice1709858275206 implements MigrationInterface {
                             isNullable: true,
                         },
                         {
+                            name: 'items',
+                            type: 'json',
+                            isNullable: true,
+                        },
+                        {
                             name: 'created_at',
                             type: 'timestamp',
                             default: 'now()',
